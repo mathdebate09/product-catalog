@@ -1,0 +1,130 @@
+// API Documentation and Test Requests for Product Catalog
+
+### Variables
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODgzZDc1YTUyZWE5ZjViZWJjNzVmNDYiLCJpYXQiOjE3NTM0NzA4MTIsImV4cCI6MTc1MzQ3NDQxMn0.PpNMmA7jxTWQJyNjVS9Nd18Ayz6bVnsab1em1IQx9ak
+
+### Authentication Routes
+
+// POST /api/auth/register - Registers a new user
+// Request Body: username, password
+// Returns (201 Created): Success message
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+###
+
+// POST /api/auth/login - Logs in a user
+// Request Body: username, password  
+// Returns (200 OK): JWT token
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Products Routes
+
+// GET /api/products - Retrieves a list of all products
+// Returns (200 OK): Array of product objects with _id, name, description, price, images
+GET {{baseUrl}}/api/products
+
+###
+
+// GET /api/products/:id - Retrieves a single product by its ID
+// URL Parameter: id (Product ID)
+// Returns (200 OK): Single product object
+GET {{baseUrl}}/api/products/:product_id_here
+
+###
+
+// POST /api/products - Adds a new product (Protected)
+// Headers: Authorization Bearer token required
+// Request Body: name, description, price, images array
+// Returns (201 Created): Newly created product object
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "New Product 3",
+  "description": "A great new product",
+  "price": 29.99,
+  "images": ["https://i.pinimg.com/736x/2d/95/e5/2d95e5886fc4c65a6778b5fee94a7d59.jpg"]
+}
+
+###
+
+// PUT /api/products/:id - Updates an existing product (Protected)
+// URL Parameter: id (Product ID)
+// Headers: Authorization Bearer token required
+// Request Body: name, description, price (partial updates allowed)
+// Returns (200 OK): Updated product object
+PUT {{baseUrl}}/api/products/6883d77552ea9f5bebc75f4c
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Updated Product Name 2",
+  "description": "Updated description",
+  "price": 39.99
+}
+
+###
+
+// DELETE /api/products/:id - Deletes a product (Protected)
+// URL Parameter: id (Product ID)
+// Headers: Authorization Bearer token required
+// Returns (200 OK): Success message
+DELETE {{baseUrl}}/api/products/:product_id_here
+Authorization: Bearer {{token}}
+
+###
+
+// POST /api/products/:id/images - Adds new image URLs to a product (Protected)
+// URL Parameter: id (Product ID)
+// Headers: Authorization Bearer token required
+// Request Body: images array
+// Returns (200 OK): Updated product object with new images
+POST {{baseUrl}}/api/products/:product_id_here/images
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "images": ["https://i.pinimg.com/736x/2d/95/e5/2d95e5886fc4c65a6778b5fee94a7d59.jpg", "https://i.pinimg.com/736x/2d/95/e5/2d95e5886fc4c65a6778b5fee94a7d59.jpg"]
+}
+
+###
+
+// DELETE /api/products/:id/images - Removes specific image URLs from a product (Protected)
+// URL Parameter: id (Product ID)
+// Headers: Authorization Bearer token required
+// Request Body: images array to remove
+// Returns (200 OK): Updated product object with specified images removed
+DELETE {{baseUrl}}/api/products/product_id_here/images
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "images": ["https://i.pinimg.com/736x/2d/95/e5/2d95e5886fc4c65a6778b5fee94a7d59.jpg"]
+}
+
+// PATCH /api/products/:id/quantity - Updates the quantity of a specific product (Protected)
+// URL Parameter: id (Product ID)
+// Headers: Authorization Bearer token required
+// Request Body: quantity
+// Returns (200 OK): Updated product object with new quantity
+PATCH {{baseUrl}}/api/products/:product_id_here/quantity
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantity": 75
+}
