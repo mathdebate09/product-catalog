@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:api": "cd api && nodemon index.js",
-    "dev:client": "cd client && vite"
+    "dev:client": "cd client && next dev"
   },
   "keywords": [],
   "author": "",
