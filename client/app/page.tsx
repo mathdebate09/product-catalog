@@ -1,5 +1,5 @@
-import Component from "../components/terminal-api-client"
+import CatalogManager from "../components/terminal-shop"
 
 export default function Page() {
-  return <Component />
+  return <CatalogManager />
 }
