@@ -21,7 +21,7 @@ interface Product {
 }
 
 interface TerminalLine {
-  type: "command" | "output" | "error" | "success"
+  type: "command" | "output" | "error" | "success" | "system"
   content: string
   timestamp: string
 }
