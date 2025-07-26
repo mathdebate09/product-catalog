@@ -43,7 +43,7 @@ export default function CatalogManager() {
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set())
   const terminalRef = useRef<HTMLDivElement>(null)
 
-  const baseUrl = "http://localhost:3000"
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
 
   useEffect(() => {
     fetchProducts()
